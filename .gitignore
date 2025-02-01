@@ -1,0 +1,5 @@
+#ignorar el archivo
+/bin/.main
+
+#no ignorar el folder
+!/bin/
