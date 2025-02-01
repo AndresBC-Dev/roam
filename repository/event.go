@@ -1,17 +1,19 @@
 package repository
 
 import (
-	"time"
-
 	"github.com/AndresBC-Dev/tickets-api/v1/model"
 )
 
 type EventRepository struct {
-	db any
+	db     any
+	Events []*model.Event
 }
 
 func (r *EventRepository) CreateOne(event model.Event) (*model.Event, error) {
-	return nil, nil
+
+	var Events = append(r.Events, &event)
+	index := len(Events) - 1
+	return Events[index], nil
 }
 
 func (r *EventRepository) GetOne(eventID uint) (*model.Event, error) {
@@ -19,20 +21,11 @@ func (r *EventRepository) GetOne(eventID uint) (*model.Event, error) {
 }
 
 func (r *EventRepository) GetMany(event model.Event) ([]*model.Event, error) {
-	events := []*model.Event{}
 
-	events = append(events, &model.Event{
-		ID:        12,
-		Name:      "morat concert",
-		Location:  "madrid",
-		Date:      time.Now(),
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-	})
-	return events, nil
+	return r.Events, nil
 }
 
-func NewEventRepository(db any) model.EventRepository {
+func NewEventRepository(db any) *EventRepository {
 	return &EventRepository{
 		db: db,
 	}
